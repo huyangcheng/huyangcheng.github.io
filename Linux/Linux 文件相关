@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="胡杨成,576912212@qq.com"><title>Linux 文件相关 · 小胡子</title><meta name="description" content="Linux 文件相关"><meta name="keywords" content="胡杨成"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">小胡子</a></h3><div class="description"><p>好好学习，天天向上。</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/huyangcheng"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/huyangcheng"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="/images/favicon.png"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>Linux 文件相关</a></h3></div><div class="post-content"><ul>
+<li><code>/etc/passwd</code>：保存帐号信息</li>
+<li><code>/etc/shadow</code>：保存帐号密码</li>
+<li><code>/etc/group</code>：保存所有组名</li>
+<li><code>/etc/locale.conf</code>：系统默认语言</li>
+<li><code>/var/log/wtmp</code>：保存用户登录信息</li>
+</ul>
+<h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h3><p><strong>格式</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[文件类型和权限]  [连结]  [拥有者]  [群组]  [文件容量]  [修改日期]  [文件名]</span><br></pre></td></tr></table></figure>
+<h4 id="文件类型和权限"><a href="#文件类型和权限" class="headerlink" title="文件类型和权限"></a>文件类型和权限</h4><p><strong>示例解析</strong></p>
+<p><code>-rwxrwx----</code></p>
+<p>第一个字符代表文件的类型，具体字符类型如下表</p>
+<ul>
+<li><code>d</code>：目录</li>
+<li><code>-</code>：文件</li>
+<li><code>l</code>：连结档 （link file）</li>
+<li><code>b</code>：装置文件里面的可供储存的接口设备</li>
+<li><code>c</code>：装置文件里面的串行端口设备</li>
+</ul>
+<p>接下来的字符，以三个为一组，且均为 <code>[rwx]</code> 的参数组合。其中，<code>[r]</code> 代表可读、<code>[w]</code> 代表可写、<code>[x]</code> 代表可执行。<br>这三个权限的位置不会改变，如果没权限，就会出现减号<code>[-]</code>。</p>
+<ul>
+<li>第一组为文件拥有者的权限</li>
+<li>第二组为加入此群组者的权限</li>
+<li>第三组为非本人且没有加入本群组其他帐号的权限</li>
+</ul>
+<h4 id="文件操作功能与权限"><a href="#文件操作功能与权限" class="headerlink" title="文件操作功能与权限"></a>文件操作功能与权限</h4><p>拥有执行权限的目录，即使没有读权限也能进入目录并查看目录中的文件，如果有读权限那么 tab 将会进行名称补全</p>
+<h4 id="rwx-权限意义"><a href="#rwx-权限意义" class="headerlink" title="rwx 权限意义"></a>rwx 权限意义</h4><ul>
+<li><code>r</code>：具有读取目录结构列表的权限</li>
+<li><code>w</code>：具有异动目录结构列表的权限<ul>
+<li>简历心的文件或者目录</li>
+<li>删除已存在的文件或者目录</li>
+<li>将已存在的文件或者目录进行更名</li>
+<li>搬移该目录内的文件、目录位置    </li>
+</ul>
+</li>
+<li><code>x</code>：对于文件表示是否可执行；对于目录表示是否可进入</li>
+</ul>
+<h3 id="目录配置的依据–FHS"><a href="#目录配置的依据–FHS" class="headerlink" title="目录配置的依据–FHS"></a>目录配置的依据–FHS</h3><p><strong>Filesystem Hierarchy Standard</strong> 标准用于规范每个特定的目录下应该要放置什么样子的数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>可分享的</th>
+<th>不可分享的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>不可变的</strong> | /usr (软件放置处) | /etc (配置文件)<br>|| /opt (第三方协力软件) | /boot (开机与核心档)<br><strong>可变动的</strong> | /var/mail (使用者邮件信箱) | /var/run (程序相关)<br>|| /var/spool/new (新闻组) | /var/lock (程序相关)</p>
+<p><strong>四个类型</strong></p>
+<ul>
+<li><code>可分享的</code>：可分享给其他系统挂载使用的目录，包括执行文件与用户邮件等数据</li>
+<li><code>不可分享的</code>：自己机器上面运作的装置文件或者与程序相关的 socket 文件等</li>
+<li><code>不变的</code>：有些数据是不会经常变动的，例如函数库、文件说明文件、系统管理员所管理的主机服务配置文件等</li>
+<li><code>可变动的</code>：经常改变的数据，例如登录文件、一般用户可自行收受的新闻组等</li>
+</ul>
+<p><strong>三层基本目录</strong></p>
+<ul>
+<li>/(root，根目录)：与开机系统有关</li>
+<li>/usr：与软件安装/执行有关</li>
+<li>/var：与系统运作过程有关</li>
+</ul>
+<h3 id="文件内容查阅"><a href="#文件内容查阅" class="headerlink" title="文件内容查阅"></a>文件内容查阅</h3><ul>
+<li><code>cat [AbEnTv] 文件名</code>：由第一行开始显示文件内容<ul>
+<li>-A：相当于 -vET 的整合，可列出一些特殊字符而不是空白</li>
+<li>-b：列出行号,仅针对非空白行做行号显示，空白行不标行号</li>
+<li>-E：将结尾的断行字符 $ 显示出来</li>
+<li>-n：打印行号，空白行页打印</li>
+<li>-T：将 [tab] 键以 ^I 线上出来</li>
+<li>-v：列出一些看不出的特殊字符</li>
+</ul>
+</li>
+<li><code>tac</code>：与 cat 命令一样，不过显示的内容相反</li>
+<li><code>more 文件名</code>：一页一页的查看文件内容<ul>
+<li>空格键：下一页</li>
+<li>回车键：下一行</li>
+<li>/字符串：向下搜索字符串</li>
+<li>:f ：立即显示文件和当前行数</li>
+<li>q ：离开 more</li>
+<li>b ：回翻一页</li>
+</ul>
+</li>
+<li><code>less 文件名</code>：一页一页的查看文件内容<ul>
+<li>空格键：下一页</li>
+<li>[pagedown]：下一页</li>
+<li>[pageup]：上一页</li>
+<li>/字符串：向下搜索字符串</li>
+<li>?字符串：向上搜索字符串</li>
+<li>g ：第一行</li>
+<li>G ：最后一行</li>
+<li>q ：退出</li>
+</ul>
+</li>
+<li><code>head [-n number] 文件名</code>：取前面几行<ul>
+<li>-n ：后面接数字，表示线上几行，默认 20 行，如果为负数代表最后数的行不显示</li>
+</ul>
+</li>
+<li><code>tail [-n number -f] 文件名</code>：取后面几行<ul>
+<li>-n ：后面接数字，表示线上几行，默认 10 行，数值前使用 + 表示显示数值行以后的内容</li>
+<li>-f ：持续监测</li>
+</ul>
+</li>
+<li><p><code>head tail 配置使用命令</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 表示查看文件的第 11-20 行，首先获取 20 行，在通过 tail 查看最后 10 行</span><br><span class="line"># 两个指令中间使用 | 分割</span><br><span class="line">head -n 20 /xxxx.conf | tail -n 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>touch [-acdmt] 文件</code>：创建文件或修改文件时间</p>
+<ul>
+<li>a ：修订使用时间（access） 时间</li>
+<li>c ：修改文件时间，文件不存在不创建</li>
+<li>d ：指定时间而不是使用当前时间</li>
+<li>m ：修改最后修改时间</li>
+<li>t ：指定时间而不是使用当前时间,格式 [YYYYMMDDhhmm]</li>
+</ul>
+</li>
+<li><p><code>whereis [-bmsu] 文件名</code>：在特定的目录中寻找文件名</p>
+<ul>
+<li>-l ：列出所有查询的目录</li>
+<li>-b ：只查找 binary 文件</li>
+<li>-m ：只在说明文件路径下查找</li>
+<li>-s ：只搜索 source 来源文件</li>
+<li>-u ：寻找上面三个项目当中的其他特殊文件</li>
+</ul>
+</li>
+<li><code>locate [-ir] keyword</code><ul>
+<li>-i ：忽略大小写的差异</li>
+<li>-c ：不输出档名，仅计算找到文件数量</li>
+<li>-l ：仅输出几行的意思，-l 5 表示输出五行</li>
+<li>-S ：输出 locate 使用的数据库文件相关信息</li>
+<li>-r ：后面可接正规表示法的显示方式</li>
+</ul>
+</li>
+<li><code>updatedb</code>：读取 /etc/updatedb.conf 配置的设定，去硬盘进行搜寻文件名的动作，最后更新数据库文件</li>
+<li><code>find [PATH] [option] [action]</code>：<ul>
+<li>与时间相关的选项： [-atime -ctime -mtime]，下方以 -mtime 进行说明<ul>
+<li>-mtime n ： n 为数字，意义为在 n 天之前的一天内修改过的文件</li>
+<li>-mtime +n ：列出在 n 天（不包含 n 本身）之前被修改过内容的文件</li>
+<li>-mtime -n ：列出在 n 天（包含 n 本身）之内被修改过内容的文件</li>
+<li>-mtime n ：n 为数字，意义为在 n 天之前的一天内修改过的文件</li>
+</ul>
+</li>
+<li>-newer 文件名 ：列出比文件名还要新的文件</li>
+<li>-user name ：查找属于用户 name 的文件</li>
+<li>-group name ：查找属于用户组 name 的文件</li>
+<li>-nouser ：查找用户不存在的文件</li>
+<li>-nogroup ：查找用户组不存在的文件</li>
+<li>-name filename ：查找 filename 文件名的文件</li>
+<li>-size [+-] SIZE ：查找比 size 还要大 (+) 或小 (-) 的文件，SIZE 规格有：<br>  c ： byte<br>  k ： 1024 bytes</li>
+<li>-type TYPE ：查找类型为 TYPE 的文件， TYPE 类型有：<ul>
+<li>f ：一般正规文件</li>
+<li>b,c ：装置文件</li>
+<li>d ：目录</li>
+<li>l ：连接档</li>
+<li>s ：socket</li>
+<li>….</li>
+</ul>
+</li>
+<li>-perm [-/] mode：根据文件权限搜索<ul>
+<li>默认： mode 为权限数值，搜索文件权限等于 mode 的文件</li>
+<li><ul>
+<li>：搜索文件权限包含 mode 的文件</li>
+</ul>
+</li>
+<li>/ ：搜索文件权限包含任一 mode 的文件</li>
+</ul>
+</li>
+<li>-exec command ：command 为指令，根据指定处理搜索结果</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-04-04</span><i class="fa fa-tag"></i><a class="tag" href="/categories/Linux/" title="Linux">Linux </a><a class="tag" href="/tags/Linux/" title="Linux">Linux </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/Linux/Linux 文件相关,小胡子,Linux 文件相关,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/Linux/Linux 常用命令" title="Linux 常用命令">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
