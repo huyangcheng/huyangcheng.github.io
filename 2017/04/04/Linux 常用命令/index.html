@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="胡杨成,576912212@qq.com"><title>Linux 常用命令 · 小胡子</title><meta name="description" content="Linux 常用命令"><meta name="keywords" content="胡杨成"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">小胡子</a></h3><div class="description"><p>好好学习，天天向上。</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/huyangcheng"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/huyangcheng"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="/images/favicon.jfif"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>Linux 常用命令</a></h3></div><div class="post-content"><ul>
+<li><code>echo &#39;内容&#39; &gt; 文件名</code>：将内容写入文件中，如果文件存在将覆盖</li>
+<li><code>echo $变量名</code>：输出环境变量名的内容</li>
+<li><code>date -s &quot;yyyy-mm-dd HH:mm:ss&quot;</code>：设置时间</li>
+<li><code>cal</code>：查看日历</li>
+<li><code>cat filename</code>：读取文件名中的内容</li>
+<li><code>who</code>：查看当前谁在线</li>
+<li><code>last [loginName]</code>：查看用户登录信息</li>
+<li><code>netstat -a</code>：查看网络联机状态</li>
+<li><code>sync</code>：将数据写入磁盘</li>
+<li><p><code>shutdown [-krhc] [执行时间执行] [警告讯息]</code>：关机，参数说明：</p>
+<ul>
+<li><code>-k</code> ：不是真的关机，只是发出消息</li>
+<li><code>-r</code> ：将系统服务停止后重新启动</li>
+<li><code>-h</code> ：将系统服务停止后立即关机</li>
+<li><p><code>-c</code> ：取消已经在进行的 <strong>shutdown</strong> 指令内容</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    shutdown -h now </span><br><span class="line">    立即关机，now 表示等待时间为0</span><br><span class="line">    shutwodn -h 20:25</span><br><span class="line">    指定时间执行，如果时间小于当前时间那么第二天此时窒息感</span><br><span class="line">    shutdown -h +30</span><br><span class="line">    指定多少分钟后执行 </span><br><span class="line">    ```        </span><br><span class="line">+ `reboot`：重启</span><br><span class="line">+ `halt`：关机，系统停止屏幕保留系统停止的讯息</span><br><span class="line">+ `chgrp [-R] 群组名 目录名/文件名`：改变文件所属群组（change group  的缩写），群组名必须在 **/etc/group** 文件中存在</span><br><span class="line">    + `-R`：进行递归的持续变更，即连同目录下的所有文件、目录都改变。</span><br><span class="line">+ `chown [-R] 用户名[:群组名] 目录名/文件名 `：改变文件的拥有者（change owner 的缩写），用户必须在 **/etc/passwd** 中存在，并且可顺便修改所属群组，如果省略用户名那么将执行修改所属群组。群组名中的**：** 可用**.**代替。</span><br><span class="line">    + `-R`：进行递归的持续变更，即连同目录下的所有文件、目录都改变。</span><br><span class="line">+ `chomd [-R] 权限属性 目录名/文件名 `：改变文件的权限属性 （change mode 的缩写）</span><br><span class="line">    + `-R`：进行递归的持续变更，即连同目录下的所有文件、目录都改变。</span><br><span class="line">    + `权限属性`</span><br><span class="line">        + 数字类型：rwx 分别对应数值 4、2、1。owner/group/others 三个身份的权限数值等于相应分值之和。</span><br><span class="line">        </span><br><span class="line">        示例代码</span><br></pre></td></tr></table></figure>
+<h1 id="三个身份数值都是7，7-4-2-1，那么对应的权限就是-rwxrwxrwx-拥有所有权限"><a href="#三个身份数值都是7，7-4-2-1，那么对应的权限就是-rwxrwxrwx-拥有所有权限" class="headerlink" title="三个身份数值都是7，7=4+2+1，那么对应的权限就是 rwxrwxrwx 拥有所有权限"></a>三个身份数值都是7，7=4+2+1，那么对应的权限就是 rwxrwxrwx 拥有所有权限</h1><p>  chomd 777 file </p>
+<h1 id="设置-rwxr-xr–-的权限，分解出来首位为-4-2-1-7；第二位为-4-0-1-5；第三位为-4-0-0-4；"><a href="#设置-rwxr-xr–-的权限，分解出来首位为-4-2-1-7；第二位为-4-0-1-5；第三位为-4-0-0-4；" class="headerlink" title="设置 -rwxr-xr– 的权限，分解出来首位为 4+2+1 = 7；第二位为 4+0+1 = 5；第三位为 4+0+0 = 4；"></a>设置 -rwxr-xr– 的权限，分解出来首位为 4+2+1 = 7；第二位为 4+0+1 = 5；第三位为 4+0+0 = 4；</h1><h1 id="那么权限数值即为-754"><a href="#那么权限数值即为-754" class="headerlink" title="那么权限数值即为 754"></a>那么权限数值即为 754</h1><p>  chomd 754 file</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ 符号类型：`ugo` 分别对应 `owner/group/others` 三个身份， a 代表所有身份； rwx 分别对应读写执行的权限；+-= 为操作符，分别对应对权限的操作类型；</span><br><span class="line"></span><br><span class="line">示例代码</span><br></pre></td></tr></table></figure>
+<h1 id="u-等于-rwx-具备读写执行权限，-go-等于-rx-具备-读执行权限。-使用-操作符号为赋值操作，将覆盖原有权限属性"><a href="#u-等于-rwx-具备读写执行权限，-go-等于-rx-具备-读执行权限。-使用-操作符号为赋值操作，将覆盖原有权限属性" class="headerlink" title="u 等于 rwx 具备读写执行权限， go 等于 rx 具备 读执行权限。 使用 = 操作符号为赋值操作，将覆盖原有权限属性"></a>u 等于 rwx 具备读写执行权限， go 等于 rx 具备 读执行权限。 使用 = 操作符号为赋值操作，将覆盖原有权限属性</h1><p>  chomd u=rwx,go=rx file</p>
+<h1 id="u-等于-rwx-具备读写执行权限，-g-在现有基础上减少写权限，-o-在现有基础上加上读权限"><a href="#u-等于-rwx-具备读写执行权限，-g-在现有基础上减少写权限，-o-在现有基础上加上读权限" class="headerlink" title="u 等于 rwx 具备读写执行权限， g 在现有基础上减少写权限， o 在现有基础上加上读权限"></a>u 等于 rwx 具备读写执行权限， g 在现有基础上减少写权限， o 在现有基础上加上读权限</h1><p>  chomd u=rwx,g-w,o+r</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* `cd` :变更目录</span><br><span class="line">* `pwd [-P]`：显示当前路径，Print Working Directory 的缩写</span><br><span class="line">    * -P：显示实际路径，而不是链接地址</span><br><span class="line">* `mkdir [-mp] 目录名`：创建目录</span><br><span class="line">    * -m：配置权限，默认使用预设权限</span><br></pre></td></tr></table></figure>
+<p>mkdir -m 711 test</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* -p：递归创建，针对创建多个目录的情况下使用</span><br></pre></td></tr></table></figure>
+<p>mkdir -p test/test1/test2/test3<br>```</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>rmdir [-p] 目录名</code>：删除一个空目录<ul>
+<li>-p：递归删除上层的空目录</li>
+</ul>
+</li>
+<li><code>ls [aAdfFgukbrRST] [--color={never,auto,always}] [--full-time] 文件名或者目录名</code>：<ul>
+<li>-a：全部文件，连同隐藏档</li>
+<li>-A：全部文件，连同隐藏档，当不包含 . 和 .. 这两个目录</li>
+<li>-d：仅列出目录本身，而不是列出目录内的文件数据</li>
+<li>-f：直接列出结果，不进行排序</li>
+<li>-F：根据文录、目录等信息，给予附加数据结构<ul>
+<li>*：可执行文件</li>
+<li>/：目录</li>
+<li>=：socket 文件</li>
+<li>|：FIFO 文件</li>
+</ul>
+</li>
+<li>-h：将文件容量易读方式展示</li>
+<li>-i：列出 inode 号码</li>
+<li>-l：长数据串行出，包含文件的属性和权限等数据</li>
+<li>-n：列出 UID 与 GID </li>
+<li>-r：将排序结果反向输出</li>
+<li>-R：联通子目录内容一起列出来</li>
+<li>-S：以文件容量大小排序</li>
+<li>-t：依时间排序</li>
+<li>–color：显示颜色<ul>
+<li>never ：不依据文件特性给予颜色显示</li>
+<li>always ：显示颜色</li>
+<li>auto ：系统自行依据核定判断是否线上颜色</li>
+</ul>
+</li>
+<li>–full-time ：完整时间模式        </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>cp 来源文件 目标文件</code>：复制文件或目录</li>
+<li><code>rm [-fir] 文件或目录</code>：删除文件或目录<ul>
+<li>-f：强制删除，忽略不存在的文件</li>
+<li>-i：互动删除，在删除前询问使用者是否动作</li>
+<li>-r：递归删除</li>
+</ul>
+</li>
+<li><code>mv [-fiu] 源文件 目标地址</code>：将源文件移动至目标地址<ul>
+<li>-f：强制移动，目标文件已经存在直接覆盖</li>
+<li>-i：提示移动，目标文件已经存在询问是否覆盖</li>
+<li>-u：若目标存在且源文件比较新才会覆盖</li>
+</ul>
+</li>
+<li><code>basename 路径</code>：获取路径中的文件名</li>
+<li><code>dirname 路径</code>：获取路径中的目录名</li>
+</ul>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-04-04</span><i class="fa fa-tag"></i><a class="tag" href="/categories/Linux/" title="Linux">Linux </a><a class="tag" href="/tags/Linux/" title="Linux">Linux </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,http://yoursite.com/2017/04/04/Linux 常用命令/,小胡子,Linux 常用命令,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2017/04/04/Linux 文件相关/" title="Linux 文件相关">上一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
